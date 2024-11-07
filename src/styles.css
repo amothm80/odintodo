@@ -1,163 +1,182 @@
 /* styles.css */
-
 :root {
-  --green200: #bbf7d0;
-  --green400: #34d399;
-  --green600: #059669;
-  --background: rgb(1, 5, 10);
-  font-family: 'Satisfy', cursive;
-  font-style: italic;
+  --blue-200: #bfdbfe;
+  --slate-200: #e2e8f0;
+  --slate-400: #94a3b8;
+  --neutral-50: #fafafa;
+  font-family: ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
+    'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  font-weight: 500;
 }
 html {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  height: 100vh;
+  width: max(100%, 1050px);
+  height: 100%;
 }
-
 body {
   margin: 0;
-  width: 700px;
-  background: var(--background);
-  background-image: url('./assets/images/odin-salad-background.jpg');
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  /*centers the position of the bacground photo*/
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: fixed;
-}
-
-/* #salad-background {
-  margin: 0px;
-  padding: 0px;
-  width: max-content;
-  height: max-content;
-} */
-header {
-  /* width: clamp(300px, 50%, 60vw); */
-  /* margin-top: 100px; */
-  height: 200px;
-  width: 100%;
-  /* position: absolute; */
-  display: flex;
-  flex-direction: column;
-}
-
-#rest-name {
-  margin-top: 0px;
-  margin-bottom: 0px;
-  /* margin-left: 10%; */
-  color: white;
-  font-size: 20px;
-  font-weight: lighter;
-}
-
-#navigation {
+  height: 100%;
+  width: max(100%, 1050px);
   display: flex;
   flex-direction: row;
-  align-items: flex-end;
-  justify-content: flex-start;
+}
+
+#sidebar {
+  width: 250px;
   height: 100%;
-  /* margin-left: 10%; */
-  gap: 20px;
-}
-
-.nav-button {
-  border-top-width: 1px;
-  border-left-width: 1px;
-  border-right-width: 1px;
-  border-bottom-width: 0px;
-  z-index: 1;
-  height: 50px;
-  width: 150px;
-  box-shadow: 0px -4px 5px var(--background);
-  border-top-left-radius: 17px;
-  border-top-right-radius: 17px;
-  border-color: white;
-  transition: 0.2s;
-  /* background-color: rgba(0, 0, 0, 0.1); */
-  color: black;
-  background-color: white;
-  font-family: 'Satisfy', cursive;
-  font-size: 20px;
-  font-style: italic;
-}
-
-.nav-button:hover {
-  background-color: rgba(255, 255, 255, 0.7);
-}
-
-#content {
-  /* width: clamp(200px, 50%, 70vw);
-  height: min(70vh); */
-  /* margin-top: 30px; */
-  width: 100%;
+  background-color: var(--slate-200);
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 10px;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  grid-template-rows: auto;
-  grid-auto-flow: row;
-  justify-items: center;
-  align-items: center;
-  gap: 20px;
-  border-color: white;
-  border-left: 1px;
-  border-right: 1px;
-  border-bottom: 1px;
-  background-color: white;
-  padding-top: 30px;
-  padding-bottom: 30px;
-  border-top-right-radius: 17px;
-  border-bottom-right-radius: 17px;
-  border-bottom-left-radius: 17px;
-  border-top: 0px;
-  box-shadow: 0px -4px 5px var(--background);
+  grid-template-columns: 250px;
+  grid-auto-rows: 40px;
 }
 
-.meal-cell {
-  border-radius: 17px;
-  width: 200px;
-  height: 200px;
-  box-shadow: 0px -4px 5px var(--background);
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: 2fr 1fr;
-}
-
-.meal-image-cell {
-  background-color: white;
-  width: 200px;
-  height: 150px;
-  border-top-left-radius: 17px;
-  border-top-right-radius: 17px;
-}
-
-.meal-description {
+#sidebar-header{
   display: flex;
-  justify-content: center;
+  flex-direction: row;
+  gap: 10px;
   align-items: center;
-  color: white;
 }
 
-.meal-image {
+#user-icon{
+flex-grow: 0;
+align-self: center;
+}
+
+#user-name{
+  flex-grow: 1;
+
+}
+
+#user-notif{
+  flex-grow: 0;
+  width: 30px;
+  height: 30px;
+
+  border: 0px;
+  background-color: var(--slate-200);
+  border-radius: 20px;
+  padding: 0;
+
+}
+
+#notif-img{
+  width: 28px;
+  height: 28px;
+  
+  border: 0px;
+  outline: 0px;
+}
+
+#user-icon{
+  width:30px;
+  height: 30px;
+}
+
+
+#projects {
+  grid-row: 4;
+}
+
+#project-control{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-bottom: 10px;
+}
+#add-task-but{
+  height: 30px;
+  width: 30px;
+  border: 0px;
+  background-color: var(--slate-200);
+  border-radius: 20px;
+  padding: 0;
+  opacity: 0.8;
+}
+#add-task-img{
+  height: 28px;
+  width: 28px;
+  background-size: cover;
+}
+
+#add-task-but:hover{
+  opacity: 0.5;
+}
+
+#add-task-but:active{
+  opacity: 1;
+}
+
+.project-cell {
   width: 100%;
   height: 100%;
-  /* overflow: hidden; */
-  /*prevents pictures from stretching*/
-  object-fit: cover;
-  z-index: -1;
-  border-top-left-radius: 17px;
-  border-top-right-radius: 17px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 
-.meal-description {
-  box-shadow: 0px -2px 20px var(--background);
-  color: white;
-  font-weight: 200;
-  background-color: var(--background);
-  border-bottom-right-radius: 17px;
-  border-bottom-left-radius: 17px;
+.project-button {
+  font-family: ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
+    'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  width: 100%;
+  background-color: var(--slate-200);
+  border: 0;
+  height: 40px;
+  text-align: left;
+  padding: 10px;
+  border-radius: 10px;
+  font-weight: 500;
+
+}
+
+.project-button:hover {
+  background-color: var(--slate-400);
+  color: var(--neutral-50);
+  opacity: 0.8;
+}
+
+.project-button:active {
+  background-color: var(--slate-400);
+  color: var(--neutral-50);
+  opacity: 1;
+}
+
+#main-content {
+  width: max(100%, 800px);
+  background-color: var(--neutral-50);
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 100px;
+  height: 100%;
+}
+
+.task-cell {
+  /* display: grid;
+  grid-auto-columns: 20px;
+  grid-template-rows: 50px; */
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.task-checkbox {
+  align-self: center;
+  flex-grow: 0;
+}
+
+.task-description {
+  /* grid-column: 2/20; */
+  align-self: center;
+  justify-self: left;
+  flex-grow: 1;
+}
+
+.task-due {
+  /* grid-column: 20/22; */
+  align-self: center;
+  justify-self: right;
+  flex-grow: 0;
 }

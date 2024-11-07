@@ -2,31 +2,61 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Satisfy&display=swap"
-      rel="stylesheet"
-    />
-    <title>Odin Restaurant</title>
+    <title>Odin ToDo</title>
   </head>
   <body>
-    <header>
-      <div id="rest-name"><h1>Odin's Salad Bar</h1></div>
-      <nav id="navigation">
-        <button type="button" id="chicken-salads-button" class="nav-button">
-          Chicken Salads
+    <div id="sidebar">
+      <div id="sidebar-header">
+        <img id="user-icon" src="./assets/user.png" alt="" />
+        <p id="user-name">jbaur</p>
+        <button type="button" id="user-notif">
+          <img id="notif-img" src="./assets/notif-off.png" alt="" />
         </button>
-        <button type="button" id="meat-salads-button" class="nav-button">
-          Meat Salads
-        </button>
-        <button type="button" id="vegan-salads-button" class="nav-button">
-          Vegan Salads
-        </button>
-      </nav>
-    </header>
-    <div id="content"></div>
+      </div>
+      <div id="projects">
+        <div id="project-control">
+          <!-- <p></p> -->
+          <button id="add-task-but" type="button"><img id="add-task-img" src="./assets/plus.png" alt=""></button>
+        </div>
+        <div id="project-list">
+          <div class="project-cell">
+            <button type="button" class="project-button" id="project-button-1">
+              project 1
+            </button>
+          </div>
+          <div class="project-cell">
+            <button type="button" class="project-button" id="project-button-2">
+              project 2
+            </button>
+          </div>
+          <div class="project-cell">
+            <button type="button" class="project-button" id="project-button-3">
+              project 3
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="main-content">
+      <div id="project-title"><p>Project 1</p></div>
+      <div id="task-list">
+        <div class="task-cell">
+          <input class="task-checkbox" id="task-checkbox-1" type="checkbox" />
+          <p class="task-description" id="task-description-1">description 1</p>
+          <p class="task-due" id="task-due-1">12-29</p>
+        </div>
+        <div class="task-cell">
+          <input class="task-checkbox" id="task-checkbox-2" type="checkbox" />
+          <p class="task-description" id="task-description-2">description 2</p>
+          <p class="task-due" id="task-due-1">12-29</p>
+        </div>
+        <div class="task-cell">
+          <input class="task-checkbox" id="task-checkbox-3" type="checkbox" />
+          <p class="task-description" id="task-description-3">description 3</p>
+          <p class="task-due" id="task-due-1">12-29</p>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
