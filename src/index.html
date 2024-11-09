@@ -20,21 +20,6 @@
           <!-- <button id="add-task-but" type="button"><img id="add-task-img" src="./assets/plus.png" alt=""></button> -->
         </div>
         <div id="project-list">
-          <div class="project-cell">
-            <button type="button" class="project-button" id="project-button-1">
-              project 1
-            </button>
-          </div>
-          <div class="project-cell">
-            <button type="button" class="project-button" id="project-button-2">
-              project 2
-            </button>
-          </div>
-          <div class="project-cell">
-            <button type="button" class="project-button" id="project-button-3">
-              project 3
-            </button>
-          </div>
         </div>
       </div>
       <div id="sidebar-footer">
@@ -63,7 +48,17 @@
       <div id="main-content-footer">
         <button id="add-task-but" type="button">Add Task</button>
         <button id="del-proj-but" type="button">Delete Project</button>
-      </di>
-    </di>
+      </div>
+    </div>
+    <dialog id="add-project-dialog">
+      <form id="add-project-form" method="dialog">
+        <!-- <h2>Enter Project Name</h2> -->
+        <div class="input-group">
+          <label for="project-name-input">Enter Project Name</label>
+          <input type="text" id="project-name-input" placeholder="Enter name" autofocus>
+        </div>
+        <button type="submit"></button>
+      </form>
+    </dialog>
   </body>
 </html>
