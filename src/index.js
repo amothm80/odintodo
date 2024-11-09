@@ -22,14 +22,12 @@ function buildProjectElements(projects) {
   projects.forEach((element, index) => {
     let projectbutton = document.createElement("button");
     projectbutton.type = "button";
-    projectbutton.class = "project-button";
+    projectbutton.className = "project-button";
     projectbutton.id = `project-button-${index}`;
     projectbutton.innerHTML = element.getTodoProject();
 
-    //TODO add project button handler
-
     let projectCellDiv = document.createElement("div");
-    projectCellDiv.class = "project-cell";
+    projectCellDiv.className = "project-cell";
     projectCellDiv.appendChild(projectbutton);
 
     projectList.appendChild(projectCellDiv);
@@ -44,6 +42,19 @@ function buildTaskElements(tasks) {}
 
 // TODO adde handlers for dialogs
 
+function newProjectSubmit(e,projectDialog, todoh){
+    e.preventDefault();
+    todoh.addTodoProject(document.getElementById("project-name-input").value)
+    buildProjectElements(todoh.readTodoProjects());
+    console.log("dialog submitted")
+    projectDialog.close()
+}
+function newProjectCancel(projectDialog){
+    console.log("dialog canceled");
+    projectDialog.close()
+}
+
+
 (function () {
   let tasks = [];
   let projects = [];
@@ -52,11 +63,12 @@ function buildTaskElements(tasks) {}
 
   let projectDialog = document.getElementById("add-project-dialog");
   let projectForm = document.getElementById("add-project-form");
+  let newProjectSubmitButton = document.getElementById("newProjectSubmit")
+  let newProjectCancelButton = document.getElementById("newProjectCancel")
 
-  projectForm.addEventListener("submit", (e) => {
-    e.preventDefault();
-    console.log(e);
-  });
+  projectForm.addEventListener('submit', (e) => newProjectSubmit(e,projectDialog,todoh));
+
+  newProjectCancelButton.addEventListener("click", ()=>newProjectCancel(projectDialog))
 
   let addProjectButton = document.querySelector("#add-proj-but");
   addProjectButton.addEventListener("click", () => {
