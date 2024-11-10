@@ -45,34 +45,39 @@
             required
           />
         </div>
-        <button id="newProjectSubmit" type="submit">Submit</button>
-        <button id="newProjectCancel" type="button">Cancel</button>
+        <button id="new-project-submit" type="submit">Submit</button>
+        <button id="new-project-cancel" type="button">Cancel</button>
       </form>
     </dialog>
-    <dialog id="add-task=dialog">
+    <dialog id="add-task-dialog">
       <form id="add-task-form" method="dialog">
         <div class="task-input-group">
           <label for="task-title-input">Title</label
-          ><input id="task-title-input" name="task-title-input" type="text" />
+          ><input id="task-title-input" name="task-title-input" type="text" autofocus required />
           <label for="task-description-input">Description</label
           ><input
             id="task-description-input"
             name="task-description-input"
-            type="text"
+            type="text" required
+            
           />
           <label for="task-priority-input">Priority</label
-          ><input
+          ><select
             id="task-priority-input"
             name="task-priority-input"
-            type="text"
-          />
+          >
+          <option value="normal">Normal</option>
+          <option value="high">High</option>
+        </select>
           <label for="task-duedate-input">Due Date</label
           ><input
             id="task-duedate-input"
             name="task-duedate-input"
-            type="datetime"
+            type="datetime" required
           />
         </div>
+        <button id="new-task-submit" type="submit">Submit</button>
+        <button id="new-task-cancel" type="button">Cancel</button>
       </form>
     </dialog>
   </body>

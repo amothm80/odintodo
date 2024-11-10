@@ -121,22 +121,26 @@ export const todoHandler = function (tasks, projects) {
   function readTodoProjects() {
     return todoProjects;
   }
-  function modifyTodoTask(
-    index,
-    title,
-    project,
-    description,
-    dueDate,
-    priority
-  ) {
-    todoTasks(index).modifyTodoTask(
-      title,
-      project,
-      description,
-      dueDate,
-      priority
-    );
+
+  function modifyTodoTask(){
+
   }
+  // function modifyTodoTask(
+  //   index,
+  //   title,
+  //   project,
+  //   description,
+  //   dueDate,
+  //   priority
+  // ) {
+  //   todoTasks(index).modifyTodoTask(
+  //     title,
+  //     project,
+  //     description,
+  //     dueDate,
+  //     priority
+  //   );
+  // }
   function setTodoTaskCompleted(i) {
     todoTasks[i].setTaskCompleted();
   }
@@ -159,11 +163,11 @@ export const todoHandler = function (tasks, projects) {
     readTodoTasks,
     readTodoProjects,
     readTodoTasksForProject,
-    modifyTodoTask,
-    modifyTodoProject,
+    // modifyTodoTask,
+    // modifyTodoProject,
     deleteTodoTask,
     deleteTodoProject,
-    setTodoTaskCompleted,
-    unsetTodoTaskCompleted,
+    // setTodoTaskCompleted,
+    // unsetTodoTaskCompleted,
   };
 };
