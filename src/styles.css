@@ -9,7 +9,7 @@
   font-weight: 500;
 }
 
-*{
+* {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -41,7 +41,7 @@ body {
   gap: 100px;
 }
 
-#sidebar-header{
+#sidebar-header {
   display: flex;
   flex-direction: row;
   gap: 10px;
@@ -49,17 +49,16 @@ body {
   flex-grow: 0;
 }
 
-#user-icon{
-flex-grow: 0;
-align-self: center;
+#user-icon {
+  flex-grow: 0;
+  align-self: center;
 }
 
-#user-name{
+#user-name {
   flex-grow: 1;
-
 }
 
-#user-notif{
+#user-notif {
   flex-grow: 0;
   width: 30px;
   height: 30px;
@@ -70,37 +69,36 @@ align-self: center;
   padding: 0;
 }
 
-#notif-img{
+#notif-img {
   width: 28px;
   height: 28px;
-  
+
   border: 0px;
   outline: 0px;
 }
 
-#user-icon{
-  width:30px;
+#user-icon {
+  width: 30px;
   height: 30px;
 }
-
 
 #projects {
   /* grid-row: 4; */
   flex-grow: 1;
 }
 
-#sidebar-footer{
+#sidebar-footer {
   /* grid-row: 9; */
   flex-grow: 0;
   height: 30px;
   padding-bottom: 10px;
 }
 
-#add-proj-but:hover{
+#add-proj-but:hover {
   opacity: 0.5;
 }
 
-#add-proj-but:active{
+#add-proj-but:active {
   opacity: 1;
 }
 
@@ -123,7 +121,6 @@ align-self: center;
   padding: 10px;
   border-radius: 10px;
   font-weight: 500;
-
 }
 
 .project-button:hover {
@@ -149,23 +146,23 @@ align-self: center;
   flex-direction: column;
 }
 
-#project-title{
-flex-grow: 0;
-height: 150px;
-justify-content: end;
+#project-title {
+  flex-grow: 0;
+  height: 150px;
+  justify-content: end;
 }
 
-#task-list{
-flex-grow: 1;
+#task-list {
+  flex-grow: 1;
 }
 
-#main-content-footer{
-flex-grow: 0;
-height: 30px;
-display: flex;
-flex-direction: row;
-justify-content: space-between;
-padding-bottom: 10px;
+#main-content-footer {
+  flex-grow: 0;
+  height: 30px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-bottom: 10px;
 }
 
 .task-cell {
@@ -198,19 +195,21 @@ padding-bottom: 10px;
   flex-grow: 0;
 }
 
-
 /*dialog*/
-/* dialog {
-  border: none;
+dialog {
+  border: 1px;
   border-radius: 8px;
-  padding: 2rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  max-width: 400px;
-  width: 90%;
-  transform: translateX(-40%),translateY(-50%);
-  left: 50%;
-  top: 50%;
-} */
+  inset-inline-start: 0px;
+  inset-inline-end: 0px;
+  width: fit-content;
+  height: fit-content;
+  margin: auto;
+  border-width: initial;
+  /* border-style: solid; */
+  border-color: initial;
+  border-image: initial;
+  padding: 1em;
+}
 
 /* dialog::backdrop {
   background-color: rgba(0, 0, 0, 0.5);

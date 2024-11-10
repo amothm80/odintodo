@@ -19,48 +19,61 @@
           <!-- <p></p> -->
           <!-- <button id="add-task-but" type="button"><img id="add-task-img" src="./assets/plus.png" alt=""></button> -->
         </div>
-        <div id="project-list">
-        </div>
+        <div id="project-list"></div>
       </div>
       <div id="sidebar-footer">
         <button id="add-proj-but" type="button">Add Project</button>
       </div>
     </div>
     <div id="main-content">
-      <div id="project-title"><p>Project 1</p></div>
-      <div id="task-list">
-        <div class="task-cell">
-          <input class="task-checkbox" id="task-checkbox-1" type="checkbox" />
-          <p class="task-description" id="task-description-1">description 1</p>
-          <p class="task-due" id="task-due-1">12-29</p>
-        </div>
-        <div class="task-cell">
-          <input class="task-checkbox" id="task-checkbox-2" type="checkbox" />
-          <p class="task-description" id="task-description-2">description 2</p>
-          <p class="task-due" id="task-due-1">12-29</p>
-        </div>
-        <div class="task-cell">
-          <input class="task-checkbox" id="task-checkbox-3" type="checkbox" />
-          <p class="task-description" id="task-description-3">description 3</p>
-          <p class="task-due" id="task-due-1">12-29</p>
-        </div>
-      </div>
-      <div id="main-content-footer">
-        <button id="add-task-but" type="button">Add Task</button>
-        <button id="del-proj-but" type="button">Delete Project</button>
-      </div>
+      <div id="project-title"></div>
+      <div id="task-list"></div>
+      <div id="main-content-footer"></div>
     </div>
     <dialog id="add-project-dialog">
       <form id="add-project-form" method="dialog">
         <!-- <h2>Enter Project Name</h2> -->
-        <div class="input-group">
+        <div class="project-input-group">
           <label for="project-name-input">Enter Project Name</label>
-          <input type="text" id="project-name-input" placeholder="Enter name" autofocus required>
+          <input
+            type="text"
+            id="project-name-input"
+            name="project-name-input"
+            onfocus="this.value=''"
+            placeholder="Enter name"
+            autofocus
+            required
+          />
         </div>
         <button id="newProjectSubmit" type="submit">Submit</button>
         <button id="newProjectCancel" type="button">Cancel</button>
       </form>
-
+    </dialog>
+    <dialog id="add-task=dialog">
+      <form id="add-task-form" method="dialog">
+        <div class="task-input-group">
+          <label for="task-title-input">Title</label
+          ><input id="task-title-input" name="task-title-input" type="text" />
+          <label for="task-description-input">Description</label
+          ><input
+            id="task-description-input"
+            name="task-description-input"
+            type="text"
+          />
+          <label for="task-priority-input">Priority</label
+          ><input
+            id="task-priority-input"
+            name="task-priority-input"
+            type="text"
+          />
+          <label for="task-duedate-input">Due Date</label
+          ><input
+            id="task-duedate-input"
+            name="task-duedate-input"
+            type="datetime"
+          />
+        </div>
+      </form>
     </dialog>
   </body>
 </html>

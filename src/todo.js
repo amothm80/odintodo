@@ -1,10 +1,12 @@
-function todoTaskF(title, project, description, dueDate, priority) {
+// import { randomUUID } from 'crypto';
+
+function todoTaskF(title, project, description, dueDate, priority, completed) {
   let taskTitle = title;
   let taskProject = project;
   let taskDescription = description;
   let taskDueDate = dueDate;
   let taskPriority = priority;
-  let taskCompleted = false;
+  let taskCompleted = completed;
   function getTodoTask() {
     return {
       taskTitle,
@@ -12,7 +14,7 @@ function todoTaskF(title, project, description, dueDate, priority) {
       taskDescription,
       taskDueDate,
       taskPriority,
-      completed,
+      taskCompleted,
     };
   }
   function modifyTaskTitle(title) {
@@ -52,8 +54,9 @@ function todoTaskF(title, project, description, dueDate, priority) {
   };
 }
 
-function todoProjectF(title) {
+export function todoProjectF(title) {
   let projectTitle = title;
+  // let projectUUID = randomUUID();
   function getTodoProject() {
     return projectTitle;
   }
@@ -79,7 +82,8 @@ export const todoHandler = function (tasks, projects) {
       task.project,
       task.description,
       task.dueDate,
-      task.priority
+      task.priority,
+      task.completed
     );
   }
 
@@ -90,8 +94,17 @@ export const todoHandler = function (tasks, projects) {
   // let todoTasks = [];
   // let todoProjects = [];
 
-  function addTodoTask(title, project, description, dueDate, priority) {
-    todoTasks.push(todoTaskF(title, project, description, dueDate, priority));
+  function addTodoTask(
+    title,
+    project,
+    description,
+    dueDate,
+    priority,
+    completed
+  ) {
+    todoTasks.push(
+      todoTaskF(title, project, description, dueDate, priority, completed)
+    );
   }
   function addTodoProject(title) {
     todoProjects.push(todoProjectF(title));
@@ -99,9 +112,11 @@ export const todoHandler = function (tasks, projects) {
   function readTodoTasks() {
     return todoTasks;
   }
-  function readTodoTaskForProject(project){
+  function readTodoTasksForProject(project) {
     //filtering todo.readTodoTasks().filter((task)=>task.getTodoTask().taskProject == "test project")
-    todoTasks.filter((task)=>task.getTodoTask().taskProject == project.getTodoProject())
+    return todoTasks.filter(
+      (task) => task.getTodoTask().taskProject == project.getTodoProject()
+    );
   }
   function readTodoProjects() {
     return todoProjects;
@@ -122,11 +137,11 @@ export const todoHandler = function (tasks, projects) {
       priority
     );
   }
-  function setTodoTaskCompleted(i){
-    todoTasks[i].setTaskCompleted()
+  function setTodoTaskCompleted(i) {
+    todoTasks[i].setTaskCompleted();
   }
-  function unsetTodoTaskCompleted(i){
-    todoTasks[i].unsetTaskCompleted()
+  function unsetTodoTaskCompleted(i) {
+    todoTasks[i].unsetTaskCompleted();
   }
   function modifyTodoProject(index, title) {
     todoProjects(index).modifyTodoProject(title);
@@ -143,7 +158,7 @@ export const todoHandler = function (tasks, projects) {
     addTodoProject,
     readTodoTasks,
     readTodoProjects,
-    readTodoTaskForProject,
+    readTodoTasksForProject,
     modifyTodoTask,
     modifyTodoProject,
     deleteTodoTask,
