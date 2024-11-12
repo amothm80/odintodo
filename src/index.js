@@ -22,7 +22,8 @@ import addProject from "./assets/plus.png";
   let tasks = [
     {
       title: "test title",
-      project: "test project",
+      UUID: "d0872365-c66a-4d10-9ae6-81c9d9b2bbf8",
+      projectUUID: "490ab098-18b3-4b4c-a89f-6d671c49127c",
       description: "test descrption",
       dueDate: "12-12-2024",
       priority: "high",
@@ -30,7 +31,8 @@ import addProject from "./assets/plus.png";
     },
     {
       title: "test title2",
-      project: "test project",
+      UUID: "b34634c5-9d20-4098-ba42-d07cf8adfae3",
+      projectUUID: "490ab098-18b3-4b4c-a89f-6d671c49127c",
       description: "test descrption",
       dueDate: "12-12-2024",
       priority: "normal",
@@ -38,27 +40,33 @@ import addProject from "./assets/plus.png";
     },
     {
       title: "test title3",
-      project: "test project2",
+      UUID: "f6c9f73e-f377-4615-b29c-1e8e22617579",
+      projectUUID: "490ab098-18b3-4b4c-a89f-6d671c49127c",
       description: "test descrption",
       dueDate: "12-12-2024",
       priority: "high",
+      completed: false,
     },
     {
       title: "test title4",
-      project: "test project2",
+      UUID: "fe9cb9ae-87ff-4cfb-af0d-efc23bf976fe",
+      projectUUID: "bf14879c-d704-4404-9d07-a9e5c85753e8",
       description: "test descrption",
       dueDate: "12-12-2024",
       priority: "high",
+      completed: false,
     },
     {
       title: "test title5",
-      project: "test project2",
+      UUID: "f043076c-2126-46c4-8011-3615b362d5c",
+      projectUUID: "bf14879c-d704-4404-9d07-a9e5c85753e8",
       description: "test descrption",
       dueDate: "12-12-2024",
       priority: "high",
+      completed: true,
     },
   ];
-  let projects = [{ title: "test project" }, { title: "test project2" }];
+  let projects = [{ title: "test project", UUID:"490ab098-18b3-4b4c-a89f-6d671c49127c" }, { title: "test project2", UUID:"bf14879c-d704-4404-9d07-a9e5c85753e8" }];
   // let tasks = [];
   // let projects = [];
   let todoh = todoHandler(tasks, projects);

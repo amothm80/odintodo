@@ -1,131 +1,281 @@
-import {taskEventListeners, buildTaskElements} from "./taskUI.js";
-// function addTodoTask(
-//   title,
-//   project,
-//   description,
-//   dueDate,
-//   priority,
-//   completed
-// )
+import { taskEventListeners, buildTaskElements } from "./taskUI.js";
 
-export function newTaskSubmit(e, project, todoh) {
-    e.preventDefault();
+export function newTaskSubmit(e, todoh) {
+  e.preventDefault();
+  if (e.target.id.slice(0, 15) == "new-task-submit") {
+    let projectUUID = document.getElementById(e.target.id).dataset
+      .projectUUID;
+    let project = todoh.readTodoProjectByUUID(projectUUID);
     todoh.addTodoTask(
       document.getElementById("task-title-input").value,
-      project.getTodoProject(),
+      "",
+      project.getTodoProject().projectUUID,
       document.getElementById("task-description-input").value,
       document.getElementById("task-priority-input").value,
       document.getElementById("task-duedate-input").value,
       false
     );
-    // todoh.addTodoProject(document.getElementById("project-name-input").value);
-    buildTaskElements(todoh.readTodoTasksForProject(project),todoh, project);
-    console.log("dialog submitted");
+    buildTaskElements(projectUUID, todoh);
     document.getElementById("add-task-dialog").close();
   }
-  
-  
-  export function newTaskCancel() {
-    console.log("dialog canceled");
-    document.getElementById("add-task-dialog").close();
+}
+
+export function newTaskCancel() {
+  document.getElementById("add-task-dialog").close();
+}
+
+export function addTaskButtonListener(e, todoh) {
+  let projectUUID = document.getElementById(e.target.id).dataset.projectUUID;
+
+  let newTaskControl = document.getElementById("new-task-control");
+  while (newTaskControl.lastElementChild) {
+    newTaskControl.removeChild(newTaskControl.lastElementChild);
   }
-  
-  export function addTaskButtonListener(e, project, todoh) {
+  newTaskControl.innerHTML = "";
+
+  let addTaskButton = document.createElement("button");
+  addTaskButton.className = "new-task-buttons";
+  addTaskButton.id = `new-task-submit-${projectUUID.slice(24)}`;
+  addTaskButton.dataset.projectUUID = projectUUID;
+  addTaskButton.type = "submit";
+  addTaskButton.innerHTML = "Submit";
+
+  let cancelTaskButton = document.createElement("button");
+  cancelTaskButton.className = "new-task-buttons";
+  cancelTaskButton.id = `new-task-cancel`;
+  cancelTaskButton.innerHTML = "Cancel";
+
+  newTaskControl.appendChild(addTaskButton);
+  newTaskControl.appendChild(cancelTaskButton);
+
+  addTaskButton.addEventListener(
+    "click",
+    (e) => {
+      e.preventDefault();
+      newTaskSubmit(e, todoh);
+    },
+    { once: true }
+  );
+
+  cancelTaskButton.addEventListener(
+    "click",
+    (e) => {
+      e.preventDefault();
+      newTaskCancel();
+    },
+    { once: true }
+  );
+
+  document.getElementById("add-task-dialog").showModal();
+}
+
+function confirmDeleteProject(e, todoh) {
+  if (e.target.id.slice(0, 14) == "confirm-delete") {
+    let projectUUID = document.getElementById(e.target.id).dataset
+      .projectUUID;
+    todoh.deleteTodoProjectByUUID(projectUUID);
+    buildProjectElements(todoh);
+    clearProjectPage();
+    projectSidebarEventListeners(todoh);
+    document.getElementById("confirm-dialog").close();
+  }
+}
+
+function cancelDeleteProject() {
+  document.getElementById("confirm-dialog").close();
+}
+
+export function deleteProjectButtonListener(e, todoh) {
+  let projectUUID = document.getElementById(e.target.id).dataset.projectUUID;
+  let projectTitle = todoh
+    .readTodoProjectByUUID(projectUUID)
+    .getTodoProject().projectTitle;
+
+  // document
+  //   .getElementById("confirm-form")
+  //   .replaceWith(document.getElementById("confirm-form").cloneNode(true));
+
+  let confirmMessage = document.getElementById("confirm-message");
+  while (confirmMessage.lastElementChild) {
+    confirmMessage.removeChild(confirmMessage.lastElementChild);
+  }
+  confirmMessage.innerHTML = `<h3>Are you sure you want to delete "${projectTitle}"?</h3>`;
+
+  let confirmControl = document.getElementById("confirm-control");
+  while (confirmControl.lastElementChild) {
+    confirmControl.removeChild(confirmControl.lastElementChild);
+  }
+  confirmControl.innerHTML = "";
+
+  let confirmButton = document.createElement("button");
+  confirmButton.className = "confirm-buttons";
+  confirmButton.id = `confirm-delete-${projectUUID.slice(24)}`;
+  confirmButton.dataset.projectUUID = projectUUID;
+  confirmButton.type = "submit";
+  confirmButton.innerHTML = "Confirm";
+
+  let cancelButton = document.createElement("button");
+  cancelButton.className = "confirm-buttons";
+  cancelButton.id = `cancel-delete`;
+  cancelButton.innerHTML = "Cancel";
+
+  confirmControl.appendChild(confirmButton);
+  confirmControl.appendChild(cancelButton);
+
+  confirmButton.addEventListener(
+    "click",
+    (e) => {
+      e.preventDefault();
+      confirmDeleteProject(e, todoh);
+    },
+    { once: true }
+  );
+
+  cancelButton.addEventListener(
+    "click",
+    (e) => {
+      e.preventDefault();
+      cancelDeleteProject();
+    },
+    { once: true }
+  );
+
+  document.getElementById("confirm-dialog").showModal();
+}
+
+function clearProjectPage() {
+  while (document.getElementById("project-title").lastElementChild) {
     document
-      .getElementById("add-task-form")
-      .addEventListener("submit", (e) => newTaskSubmit(e, project, todoh));
-  
+      .getElementById("project-title")
+      .removeChild(document.getElementById("project-title").lastElementChild);
+  }
+  while (document.getElementById("task-list").lastElementChild) {
     document
-      .getElementById("new-task-cancel")
-      .addEventListener("click", () => newTaskCancel());
-  
-    document.getElementById("add-task-dialog").showModal();
+      .getElementById("task-list")
+      .removeChild(document.getElementById("task-list").lastElementChild);
   }
-  
-  export function deleteProjectButtonListener(e, project, todoh) {}
-  
-  export function buildProjectPage(project, todoh) {
-    let projectTitle = document.getElementById("project-title");
-    projectTitle.innerHTML = `<h1>${project.getTodoProject()}</h1>`;
-  
-    let mainContentFooter = document.getElementById("main-content-footer");
-    mainContentFooter.innerHTML = "";
-  
-    let addTaskButton = document.createElement("button");
-    addTaskButton.className = "footer-button";
-    addTaskButton.id = "add-task-but";
-    addTaskButton.innerHTML = "Add Task";
-  
-    addTaskButton.addEventListener("click", (e) =>
-      addTaskButtonListener(e, project, todoh)
-    );
-  
-    let deleteProjectButton = document.createElement("button");
-    deleteProjectButton.className = "footer-button";
-    deleteProjectButton.id = "del-proj-but";
-    deleteProjectButton.innerHTML = "Delete Project";
-  
-    deleteProjectButton.addEventListener("click", (e) =>
-      deleteProjectButtonListener(e, project, todoh)
-    );
-  
-    mainContentFooter.appendChild(addTaskButton);
-    mainContentFooter.appendChild(deleteProjectButton);
-  }
-  
-  export function projectPageEventListeners(e, project, todoh) {
-    buildTaskElements(todoh.readTodoTasksForProject(project),todoh,project);
-    buildProjectPage(project, todoh);
-  }
-  
-  export function buildProjectElements(todoh) {
-    let projects = todoh.readTodoProjects();
-    let projectList = document.querySelector("#project-list");
-    projectList.innerHTML = "";
-    projects.forEach((element, index) => {
-      let projectbutton = document.createElement("button");
-      projectbutton.type = "button";
-      projectbutton.className = "project-button";
-      projectbutton.id = `project-button-${index}`;
-      projectbutton.innerHTML = element.getTodoProject();
-  
-      projectbutton.addEventListener(
-        "click",
-        // projectPageEventListeners(element, todoh)
-        (e) => projectPageEventListeners(e, element, todoh)
+  while (document.getElementById("main-content-footer").lastElementChild) {
+    document
+      .getElementById("main-content-footer")
+      .removeChild(
+        document.getElementById("main-content-footer").lastElementChild
       );
-  
-      let projectCellDiv = document.createElement("div");
-      projectCellDiv.className = "project-cell";
-      projectCellDiv.appendChild(projectbutton);
-  
-      projectList.appendChild(projectCellDiv);
-    });
   }
-  
-  export function newProjectSubmit(e, todoh) {
+}
+
+export function buildProjectPage(projectUUID, todoh) {
+  let project = todoh.readTodoProjectByUUID(projectUUID);
+  let projectTitle = document.getElementById("project-title");
+  projectTitle.innerHTML = `<h1>${project.getTodoProject().projectTitle}</h1>`;
+
+  let mainContentFooter = document.getElementById("main-content-footer");
+  while (mainContentFooter.lastElementChild) {
+    mainContentFooter.removeChild(mainContentFooter.lastElementChild);
+  }
+  mainContentFooter.innerHTML = "";
+
+  let addTaskButton = document.createElement("button");
+  addTaskButton.className = "footer-button";
+  addTaskButton.id = `add-task-but-${projectUUID.slice(24)}`;
+  addTaskButton.dataset.projectUUID = projectUUID;
+  addTaskButton.innerHTML = "Add Task";
+
+  addTaskButton.addEventListener("click", (e) => {
     e.preventDefault();
-    todoh.addTodoProject(document.getElementById("project-name-input").value);
+    addTaskButtonListener(e, todoh);
+  });
+
+  let deleteProjectButton = document.createElement("button");
+  deleteProjectButton.className = "footer-button";
+  deleteProjectButton.id = `del-proj-but-${projectUUID.slice(24)}`;
+  deleteProjectButton.dataset.projectUUID = projectUUID;
+  deleteProjectButton.innerHTML = "Delete Project";
+
+  deleteProjectButton.addEventListener("click", (e) => {
+    e.preventDefault();
+    deleteProjectButtonListener(e, todoh);
+  });
+
+  mainContentFooter.appendChild(addTaskButton);
+  mainContentFooter.appendChild(deleteProjectButton);
+}
+
+function projectPageEventListeners(e, todoh) {
+  // let project = todoh.readTodoProject(parseInt(e.target.id.slice(15)));
+  // buildTaskElements(parseInt(e.target.id.slice(15)), todoh);
+  let projectUUID = document.getElementById(e.target.id).dataset.projectUUID;
+  buildTaskElements(projectUUID, todoh);
+  buildProjectPage(projectUUID, todoh);
+}
+
+export function buildProjectElements(todoh) {
+  let projects = todoh.readTodoProjects();
+  let projectList = document.querySelector("#project-list");
+  while (projectList.lastElementChild) {
+    projectList.removeChild(projectList.lastElementChild);
+  }
+  projectList.innerHTML = "";
+  projects.forEach((element, index) => {
+    let projectbutton = document.createElement("button");
+    projectbutton.type = "button";
+    projectbutton.className = "project-button";
+    projectbutton.id = `project-button-${element
+      .getTodoProject()
+      .projectUUID.slice(24)}`;
+    projectbutton.dataset.projectUUID = element.getTodoProject().projectUUID;
+    projectbutton.innerHTML = element.getTodoProject().projectTitle;
+
+    projectbutton.addEventListener(
+      "click",
+      // projectPageEventListeners(element, todoh)
+      (e) => {
+        projectPageEventListeners(e, todoh);
+      }
+    );
+
+    let projectCellDiv = document.createElement("div");
+    projectCellDiv.className = "project-cell";
+    projectCellDiv.appendChild(projectbutton);
+
+    projectList.appendChild(projectCellDiv);
+  });
+}
+
+export function newProjectSubmit(e, todoh) {
+  if (e.target.id == "new-project-submit") {
+    todoh.addTodoProject(
+      document.getElementById("project-name-input").value,
+      ""
+    );
     buildProjectElements(todoh);
     console.log("dialog submitted");
     document.getElementById("add-project-dialog").close();
   }
-  export function newProjectCancel() {
-    console.log("dialog canceled");
-    document.getElementById("add-project-dialog").close();
-  }
-  
-  export function projectSidebarEventListeners(todoh) {
-    document
-      .getElementById("add-project-form")
-      .addEventListener("submit", (e) => newProjectSubmit(e, todoh));
-  
-    document
-      .getElementById("new-project-cancel")
-      .addEventListener("click", () => newProjectCancel());
-  
-    document.getElementById("add-proj-but").addEventListener("click", () => {
-      document.getElementById("add-project-dialog").showModal();
-    });
-  }
-  
+}
+export function newProjectCancel() {
+  document.getElementById("add-project-dialog").close();
+}
+
+export function projectSidebarEventListeners(todoh) {
+  document.getElementById("new-project-submit").addEventListener(
+    "click",
+    (e) => {
+      e.preventDefault();
+      newProjectSubmit(e, todoh);
+    },
+    { once: true }
+  );
+
+  document.getElementById("new-project-cancel").addEventListener(
+    "click",
+    (e) => {
+      e.preventDefault();
+      newProjectCancel();
+    },
+    { once: true }
+  );
+
+  document.getElementById("add-proj-but").addEventListener("click", () => {
+    document.getElementById("add-project-dialog").showModal();
+  });
+}
