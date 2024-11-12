@@ -34,18 +34,6 @@ function todoTaskF(
       taskCompleted,
     };
   }
-  function modifyTaskTitle(title) {
-    taskTitle = title;
-  }
-  function modifyTaskDescription(description) {
-    taskDescription = description;
-  }
-  function modifyTaskDueDate(dueDate) {
-    taskDueDate = dueDate;
-  }
-  function modifyTaskPriority(priority) {
-    taskPriority = priority;
-  }
   function modifyTodoTask(title, description, dueDate, priority) {
     taskTitle = title;
     // taskProject = project;
@@ -61,17 +49,13 @@ function todoTaskF(
   }
   return {
     getTodoTask,
-    modifyTaskTitle,
-    modifyTaskDescription,
-    modifyTaskDueDate,
-    modifyTaskPriority,
     modifyTodoTask,
     setTaskCompleted,
     unsetTaskCompleted,
   };
 }
 
-export function todoProjectF(title, UUID) {
+function todoProjectF(title, UUID) {
   let projectTitle = title;
   let projectUUID = "";
   if (UUID == "") {
@@ -83,38 +67,63 @@ export function todoProjectF(title, UUID) {
   function getTodoProject() {
     return { projectTitle, projectUUID };
   }
-  function modifyProjectTitle(title) {
-    projectTitle = title;
-  }
   function modifyTodoProject(title) {
     projectTitle = title;
   }
-  return { getTodoProject, modifyProjectTitle, modifyTodoProject };
+  return { getTodoProject, modifyTodoProject };
 }
 
 // let tasks = [{taskTitle:"test title", taskProject:"test project", taskDescription:"test descrption", taskDueDate:"12-12-2024", taskPriority:"high"}]
 // let projects =[{projectTitle: "test project"}]
 
-export const todoHandler = function (tasks, projects) {
+// export const todoHandler = function (tasks, projects) {
+export const todoHandler = function () {
   let todoTasks = [];
   let todoProjects = [];
-  for (const task of tasks) {
-    //the intial read from storage
-    addTodoTask(
-      task.title,
-      task.UUID,
-      task.projectUUID,
-      task.description,
-      task.dueDate,
-      task.priority,
-      task.completed
-    );
+
+  function saveToLocalStorage() {
+    let todoTasksJSON = [];
+    let todoProjectsJSON = [];
+
+    for (let task of todoTasks) {
+      todoTasksJSON.push(task.getTodoTask());
+    }
+    for (let project of todoProjects) {
+      todoProjectsJSON.push(project.getTodoProject());
+    }
+    localStorage.setItem("todoTasks", JSON.stringify(todoTasksJSON));
+    localStorage.setItem("todoProjects", JSON.stringify(todoProjectsJSON));
   }
 
-  for (const project of projects) {
-    //the intial read from storage
-    addTodoProject(project.title, project.UUID);
+  function loadFromStorage() {
+    const tasks = JSON.parse(localStorage.getItem("todoTasks"));
+    const projects = JSON.parse(localStorage.getItem("todoProjects"));
+
+    if (tasks) {
+      for (const task of tasks) {
+        //the intial read from storage
+        addTodoTask(
+          task.taskTitle,
+          task.taskUUID,
+          task.taskProjectUUID,
+          task.taskDescription,
+          task.taskDueDate,
+          task.taskPriority,
+          task.taskCompleted,
+          true
+        );
+      }
+    }
+
+    if (projects) {
+      for (const project of projects) {
+        //the intial read from storage
+        addTodoProject(project.projectTitle, project.projectUUID, true);
+      }
+    }
   }
+
+  loadFromStorage();
 
   function addTodoTask(
     title,
@@ -123,7 +132,8 @@ export const todoHandler = function (tasks, projects) {
     description,
     dueDate,
     priority,
-    completed
+    completed,
+    storageLoad
   ) {
     todoTasks.push(
       todoTaskF(
@@ -136,9 +146,15 @@ export const todoHandler = function (tasks, projects) {
         completed
       )
     );
+    if (!storageLoad) {
+      saveToLocalStorage();
+    }
   }
-  function addTodoProject(title, UUID) {
+  function addTodoProject(title, UUID, storageLoad) {
     todoProjects.push(todoProjectF(title, UUID));
+    if (!storageLoad) {
+      saveToLocalStorage();
+    }
   }
   function readTodoTasks() {
     return todoTasks;
@@ -175,28 +191,43 @@ export const todoHandler = function (tasks, projects) {
     return todoProjects;
   }
 
+  function modifyTodoTask(title, description, dueDate, priority, UUID) {
+    let task = readTodoTaskByUUID(UUID);
+    task.modifyTodoTask(title, description, dueDate, priority);
+    saveToLocalStorage();
+  }
+
+  function modifyTodoProject(title, UUID) {
+    let project = readTodoProjectByUUID(UUID);
+    project.modifyTodoProject(title);
+    saveToLocalStorage();
+  }
+
   function deleteTodoTaskByIndex(index) {
     todoTasks.splice(index, 1);
+    saveToLocalStorage();
   }
   function deleteTodoTaskByUUID(UUID) {
     todoTasks.splice(
       todoTasks.findIndex((task) => task.getTodoTask().taskUUID == UUID),
       1
     );
+    saveToLocalStorage();
   }
   function deleteTodoProjectByIndex(index) {
     todoProjects.splice(index, 1);
+    saveToLocalStorage();
   }
   function deleteTodoProjectByUUID(UUID) {
-    let tasks = readTodoTasksForProject(readTodoProjectByUUID(UUID))
+    let tasks = readTodoTasksForProject(readTodoProjectByUUID(UUID));
 
-    for(let task of tasks){
+    for (let task of tasks) {
       todoTasks.splice(
         todoTasks.findIndex(
-          (t)=>
-            t.getTodoTask().taskUUID == task.getTodoTask().taskUUID
-        ),1
-      )
+          (t) => t.getTodoTask().taskUUID == task.getTodoTask().taskUUID
+        ),
+        1
+      );
     }
 
     todoProjects.splice(
@@ -205,7 +236,18 @@ export const todoHandler = function (tasks, projects) {
       ),
       1
     );
+    saveToLocalStorage();
+  }
 
+  function setTodoTaskCompleted(UUID) {
+    let task = readTodoTaskByUUID(UUID);
+    task.setTaskCompleted();
+    saveToLocalStorage();
+  }
+  function unsetTodoTaskCompleted(UUID) {
+    let task = readTodoTaskByUUID(UUID);
+    task.unsetTaskCompleted();
+    saveToLocalStorage();
   }
 
   return {
@@ -218,9 +260,13 @@ export const todoHandler = function (tasks, projects) {
     readTodoProjectByUUID,
     readTodoProjects,
     readTodoTasksForProject,
+    modifyTodoTask,
+    modifyTodoProject,
     deleteTodoTaskByIndex,
     deleteTodoTaskByUUID,
     deleteTodoProjectByIndex,
     deleteTodoProjectByUUID,
+    setTodoTaskCompleted,
+    unsetTodoTaskCompleted,
   };
 };

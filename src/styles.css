@@ -1,4 +1,10 @@
 /* styles.css */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 :root {
   --blue-200: #bfdbfe;
   --slate-200: #e2e8f0;
@@ -9,17 +15,12 @@
   font-weight: 500;
 }
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+
 html {
   width: max(100%, 800px);
   height: 100%;
 }
 body {
-  margin: 0;
   height: 100%;
   width: max(100%, 800px);
   display: flex;
@@ -27,15 +28,9 @@ body {
 }
 
 #sidebar {
-  width: 250px;
+  width: 300px;
   height: 100%;
   background-color: var(--slate-200);
-  padding-left: 10px;
-  padding-right: 10px;
-  padding-top: 10px;
-  /* display: grid;
-  grid-template-columns: 250px;
-  grid-auto-rows: 40px; */
   display: flex;
   flex-direction: column;
   gap: 100px;
@@ -47,6 +42,7 @@ body {
   gap: 10px;
   align-items: center;
   flex-grow: 0;
+  padding: 10px;
 }
 
 #user-icon {
@@ -66,13 +62,11 @@ body {
   border: 0px;
   background-color: var(--slate-200);
   border-radius: 20px;
-  padding: 0;
 }
 
 #notif-img {
   width: 28px;
   height: 28px;
-
   border: 0px;
   outline: 0px;
 }
@@ -85,14 +79,23 @@ body {
 #projects {
   /* grid-row: 4; */
   flex-grow: 1;
+  padding: 0 10px 0 10px;
 }
 
 #sidebar-footer {
   /* grid-row: 9; */
+  display: flex;
+  flex-direction: row;
   flex-grow: 0;
-  height: 30px;
-  padding-bottom: 10px;
+  height: 50px;
+  width: 100%;
+  box-shadow: -2px 0 2px 1px black;
+  justify-content: center;
+  align-items: center;
 }
+
+/* #add-proj-but{
+} */
 
 #add-proj-but:hover {
   opacity: 0.5;
@@ -100,6 +103,11 @@ body {
 
 #add-proj-but:active {
   opacity: 1;
+}
+
+.footer-button{
+  width: 150px;
+  height: 30px;
 }
 
 .project-cell {
@@ -118,9 +126,9 @@ body {
   border: 0;
   height: 40px;
   text-align: left;
-  padding: 10px;
   border-radius: 10px;
   font-weight: 500;
+  padding: 0 10px 0 10px;
 }
 
 .project-button:hover {
@@ -135,12 +143,11 @@ body {
   opacity: 1;
 }
 
+
+
 #main-content {
   width: max(100%, 800px);
   background-color: var(--neutral-50);
-  padding-left: 20px;
-  padding-right: 20px;
-  /* padding-top: 100px; */
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -148,21 +155,25 @@ body {
 
 #project-title {
   flex-grow: 0;
-  height: 150px;
-  justify-content: end;
+  height: 200px;
+  padding: 10px;
+  align-content: end;
 }
 
 #task-list {
   flex-grow: 1;
+  padding: 10px;
 }
 
 #main-content-footer {
   flex-grow: 0;
-  height: 30px;
+  height: 50px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  padding-bottom: 10px;
+  box-shadow: 1px 0px 2px 1px black;
+  padding: 0 10px 0 10px;
+  align-items: center;
 }
 
 .task-cell {

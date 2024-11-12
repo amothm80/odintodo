@@ -5,15 +5,14 @@ function editTaskSubmit(e, todoh) {
   if (e.target.id.slice(0, 16) == "edit-task-submit") {
     let taskUUID = document.getElementById(e.target.id).dataset.taskUUID;
     let projectUUID = document.getElementById(e.target.id).dataset.projectUUID;
-    let task = todoh.readTodoTaskByUUID(taskUUID);
-    let project = todoh.readTodoProjectByUUID(projectUUID);
 
-    task.modifyTodoTask(
+    todoh.modifyTodoTask(
       document.getElementById("task-title-input").value,
       // task.getTodoTask().taskProject,
       document.getElementById("task-description-input").value,
       document.getElementById("task-duedate-input").value,
-      document.getElementById("task-priority-input").value
+      document.getElementById("task-priority-input").value,
+      taskUUID
       // task.getTodoTask().taskCompleted
     );
 
@@ -132,7 +131,13 @@ function taskDeleteButtonListener(e, todoh) {
   document.getElementById("confirm-dialog").showModal();
 }
 
-function toggleCompleted(){}
+function toggleCompleted(e,todoh){
+  if(e.target.checked){
+    todoh.setTodoTaskCompleted(e.target.dataset.taskUUID)
+  }else{
+    todoh.unsetTodoTaskCompleted(e.target.dataset.taskUUID)
+  }
+}
 
 export function buildTaskElements(projectUUID, todoh) {
   let project = todoh.readTodoProjectByUUID(projectUUID);

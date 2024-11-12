@@ -22,7 +22,7 @@
         <div id="project-list"></div>
       </div>
       <div id="sidebar-footer">
-        <button id="add-proj-but" type="button">Add Project</button>
+        <button class="footer-button" id="add-proj-but" type="button">Add Project</button>
       </div>
     </div>
     <div id="main-content">
@@ -39,7 +39,6 @@
             type="text"
             id="project-name-input"
             name="project-name-input"
-            onfocus="this.value=''"
             placeholder="Enter name"
             autofocus
             required
@@ -76,7 +75,7 @@
           ><input
             id="task-duedate-input"
             name="task-duedate-input"
-            type="datetime"
+            type="datetime-local"
             required
           />
         </div>
