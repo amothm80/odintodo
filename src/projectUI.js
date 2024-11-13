@@ -1,11 +1,11 @@
-import { taskEventListeners, buildTaskElements } from "./taskUI.js";
+import { buildTaskElements } from './taskUI.js';
 import editImg from './assets/edit-text.png'
 
 
 export function newTaskSubmit(e, todoh) {
   e.preventDefault();
   if (e.target.id.slice(0, 15) == "new-task-submit") {
-    let projectUUID = document.getElementById(e.target.id).dataset.projectUUID;
+    const projectUUID = document.getElementById(e.target.id).dataset.projectUUID;
     todoh.addTodoTask(
       document.getElementById("task-title-input").value,
       "",
@@ -29,22 +29,22 @@ export function addTaskButtonListener(e, todoh) {
   document.getElementById("task-description-input").value = "";
   document.getElementById("task-duedate-input").value = "";
 
-  let projectUUID = document.getElementById(e.target.id).dataset.projectUUID;
+  const projectUUID = document.getElementById(e.target.id).dataset.projectUUID;
 
-  let newTaskControl = document.getElementById("new-task-control");
+  const newTaskControl = document.getElementById("new-task-control");
   while (newTaskControl.lastElementChild) {
     newTaskControl.removeChild(newTaskControl.lastElementChild);
   }
   newTaskControl.innerHTML = "";
 
-  let addTaskButton = document.createElement("button");
+  const addTaskButton = document.createElement("button");
   addTaskButton.className = "new-task-buttons";
   addTaskButton.id = `new-task-submit-${projectUUID.slice(24)}`;
   addTaskButton.dataset.projectUUID = projectUUID;
   addTaskButton.type = "submit";
   addTaskButton.innerHTML = "Submit";
 
-  let cancelTaskButton = document.createElement("button");
+  const cancelTaskButton = document.createElement("button");
   cancelTaskButton.className = "new-task-buttons";
   cancelTaskButton.id = `new-task-cancel`;
   cancelTaskButton.innerHTML = "Cancel";
@@ -75,7 +75,7 @@ export function addTaskButtonListener(e, todoh) {
 
 function confirmDeleteProject(e, todoh) {
   if (e.target.id.slice(0, 14) == "confirm-delete") {
-    let projectUUID = document.getElementById(e.target.id).dataset.projectUUID;
+    const projectUUID = document.getElementById(e.target.id).dataset.projectUUID;
     todoh.deleteTodoProjectByUUID(projectUUID);
     buildProjectElements(todoh);
     clearProjectPage();
@@ -89,31 +89,31 @@ function cancelDeleteProject() {
 }
 
 export function deleteProjectButtonListener(e, todoh) {
-  let projectUUID = document.getElementById(e.target.id).dataset.projectUUID;
-  let projectTitle = todoh
+  const projectUUID = document.getElementById(e.target.id).dataset.projectUUID;
+  const projectTitle = todoh
     .readTodoProjectByUUID(projectUUID)
     .getTodoProject().projectTitle;
 
-  let confirmMessage = document.getElementById("confirm-message");
+    const confirmMessage = document.getElementById("confirm-message");
   while (confirmMessage.lastElementChild) {
     confirmMessage.removeChild(confirmMessage.lastElementChild);
   }
   confirmMessage.innerHTML = `<h3>Are you sure you want to delete "${projectTitle}"?</h3>`;
 
-  let confirmControl = document.getElementById("confirm-control");
+  const confirmControl = document.getElementById("confirm-control");
   while (confirmControl.lastElementChild) {
     confirmControl.removeChild(confirmControl.lastElementChild);
   }
   confirmControl.innerHTML = "";
 
-  let confirmButton = document.createElement("button");
+  const confirmButton = document.createElement("button");
   confirmButton.className = "confirm-buttons";
   confirmButton.id = `confirm-delete-${projectUUID.slice(24)}`;
   confirmButton.dataset.projectUUID = projectUUID;
   confirmButton.type = "submit";
   confirmButton.innerHTML = "Confirm";
 
-  let cancelButton = document.createElement("button");
+  const cancelButton = document.createElement("button");
   cancelButton.className = "confirm-buttons";
   cancelButton.id = `cancel-delete`;
   cancelButton.innerHTML = "Cancel";
@@ -207,8 +207,8 @@ function editProjectTitle(todoh, projectUUID) {
 }
 
 export function buildProjectPage(projectUUID, todoh) {
-  let project = todoh.readTodoProjectByUUID(projectUUID);
-  let projectTitle = document.getElementById("project-title");
+  const project = todoh.readTodoProjectByUUID(projectUUID);
+  const projectTitle = document.getElementById("project-title");
   projectTitle.innerHTML = `<h1>${project.getTodoProject().projectTitle}</h1>`;
 
   const projectTitleEditButton = document.createElement("button");
@@ -223,18 +223,18 @@ export function buildProjectPage(projectUUID, todoh) {
   projectEditImage.id = 'project-edit-image';
   projectTitleEditButton.appendChild(projectEditImage);
 
-  projectTitleEditButton.addEventListener("click", (e) => {
+  projectTitleEditButton.addEventListener("click", () => {
     editProjectTitle(todoh, projectUUID);
   });
   projectTitle.appendChild(projectTitleEditButton);
 
-  let mainContentFooter = document.getElementById("main-content-footer");
+  const mainContentFooter = document.getElementById("main-content-footer");
   while (mainContentFooter.lastElementChild) {
     mainContentFooter.removeChild(mainContentFooter.lastElementChild);
   }
   mainContentFooter.innerHTML = "";
 
-  let addTaskButton = document.createElement("button");
+  const addTaskButton = document.createElement("button");
   addTaskButton.className = "footer-button-add";
   addTaskButton.id = `add-task-but-${projectUUID.slice(24)}`;
   addTaskButton.dataset.projectUUID = projectUUID;
@@ -245,7 +245,7 @@ export function buildProjectPage(projectUUID, todoh) {
     addTaskButtonListener(e, todoh);
   });
 
-  let deleteProjectButton = document.createElement("button");
+  const deleteProjectButton = document.createElement("button");
   deleteProjectButton.className = "footer-button-delete";
   deleteProjectButton.id = `del-proj-but-${projectUUID.slice(24)}`;
   deleteProjectButton.dataset.projectUUID = projectUUID;
@@ -263,20 +263,20 @@ export function buildProjectPage(projectUUID, todoh) {
 function projectPageEventListeners(e, todoh) {
   // let project = todoh.readTodoProject(parseInt(e.target.id.slice(15)));
   // buildTaskElements(parseInt(e.target.id.slice(15)), todoh);
-  let projectUUID = document.getElementById(e.target.id).dataset.projectUUID;
+  const projectUUID = document.getElementById(e.target.id).dataset.projectUUID;
   buildTaskElements(projectUUID, todoh);
   buildProjectPage(projectUUID, todoh);
 }
 
 export function buildProjectElements(todoh) {
-  let projects = todoh.readTodoProjects();
-  let projectList = document.querySelector("#project-list");
+  const projects = todoh.readTodoProjects();
+  const projectList = document.querySelector("#project-list");
   while (projectList.lastElementChild) {
     projectList.removeChild(projectList.lastElementChild);
   }
   projectList.innerHTML = "";
-  projects.forEach((element, index) => {
-    let projectbutton = document.createElement("button");
+  projects.forEach((element) => {
+    const projectbutton = document.createElement("button");
     projectbutton.type = "button";
     projectbutton.className = "project-button";
     projectbutton.id = `project-button-${element
@@ -294,7 +294,7 @@ export function buildProjectElements(todoh) {
       projectPageEventListeners(e, todoh);
     });
 
-    let projectCellDiv = document.createElement("div");
+    const projectCellDiv = document.createElement("div");
     projectCellDiv.className = "project-cell";
     projectCellDiv.appendChild(projectbutton);
 

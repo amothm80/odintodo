@@ -4,8 +4,8 @@ import editImg from './assets/edit-text.png'
 function editTaskSubmit(e, todoh) {
   e.preventDefault();
   if (e.target.id.slice(0, 16) == "edit-task-submit") {
-    let taskUUID = document.getElementById(e.target.id).dataset.taskUUID;
-    let projectUUID = document.getElementById(e.target.id).dataset.projectUUID;
+    const taskUUID = document.getElementById(e.target.id).dataset.taskUUID;
+    const projectUUID = document.getElementById(e.target.id).dataset.projectUUID;
 
     todoh.modifyTodoTask(
       document.getElementById("task-title-input").value,
@@ -76,8 +76,8 @@ function taskEditButtonListener(e, todoh) {
 function confirmDeleteTask(e, todoh) {
   e.preventDefault();
   if (e.target.id.slice(0, 14) == "confirm-delete") {
-    let taskUUID = document.getElementById(e.target.id).dataset.taskUUID;
-    let projectUUID = document.getElementById(e.target.id).dataset.projectUUID;
+    const taskUUID = document.getElementById(e.target.id).dataset.taskUUID;
+    const projectUUID = document.getElementById(e.target.id).dataset.projectUUID;
     todoh.deleteTodoTaskByUUID(taskUUID);
     buildTaskElements(projectUUID, todoh);
     // projectSidebarEventListeners(todoh);
@@ -93,23 +93,23 @@ function taskDeleteButtonListener(e, todoh) {
   // taskDeleteButton.dataset.projectUUID = projectUUID;
   // taskDeleteButton.dataset.taskUUID = element.getTodoTask().taskUUID;
 
-  let projectUUID = document.getElementById(e.target.parentElement.id).dataset.projectUUID;
-  let taskUUID = document.getElementById(e.target.parentElement.id).dataset.taskUUID;
-  let taskTitle = todoh.readTodoTaskByUUID(taskUUID).getTodoTask().taskTitle;
+  const projectUUID = document.getElementById(e.target.parentElement.id).dataset.projectUUID;
+  const taskUUID = document.getElementById(e.target.parentElement.id).dataset.taskUUID;
+  const taskTitle = todoh.readTodoTaskByUUID(taskUUID).getTodoTask().taskTitle;
 
-  let confirmMessage = document.getElementById("confirm-message");
+  const confirmMessage = document.getElementById("confirm-message");
   while (confirmMessage.lastElementChild) {
     confirmMessage.removeChild(confirmMessage.lastElementChild);
   }
   confirmMessage.innerHTML = `<h3>Are you sure you want to delete "${taskTitle}"?</h3>`;
 
-  let confirmControl = document.getElementById("confirm-control");
+  const confirmControl = document.getElementById("confirm-control");
   while (confirmControl.lastElementChild) {
     confirmControl.removeChild(confirmControl.lastElementChild);
   }
   confirmControl.innerHTML = "";
 
-  let confirmButton = document.createElement("button");
+  const confirmButton = document.createElement("button");
   confirmButton.className = "confirm-buttons";
   confirmButton.id = `confirm-delete-${taskUUID.slice(24)}`;
   confirmButton.dataset.taskUUID = taskUUID;
@@ -117,7 +117,7 @@ function taskDeleteButtonListener(e, todoh) {
   confirmButton.type = "submit";
   confirmButton.innerHTML = "Confrim";
 
-  let cancelButton = document.createElement("button");
+  const cancelButton = document.createElement("button");
   cancelButton.className = "confirm-buttons";
   cancelButton.id = `cancel-delete`;
   cancelButton.innerHTML = "Cancel";
@@ -141,9 +141,9 @@ function toggleCompleted(e,todoh){
 }
 
 export function buildTaskElements(projectUUID, todoh) {
-  let project = todoh.readTodoProjectByUUID(projectUUID);
-  let tasks = todoh.readTodoTasksForProject(project);
-  let taskList = document.getElementById("task-list");
+  const project = todoh.readTodoProjectByUUID(projectUUID);
+  const tasks = todoh.readTodoTasksForProject(project);
+  const taskList = document.getElementById("task-list");
   while (taskList.lastElementChild) {
     taskList.removeChild(taskList.lastElementChild);
   }
@@ -153,7 +153,7 @@ export function buildTaskElements(projectUUID, todoh) {
     const taskUUID = task.taskUUID;
     // if (task.taskProjectUUID == project.getTodoProject().projectUUID) {
     /*high cell fields*/
-    let completed = document.createElement("input");
+    const completed = document.createElement("input");
     completed.className = "task-checkbox";
     completed.id = `task-checkbox-${taskUUID.slice(24)}`;
     completed.dataset.taskUUID = taskUUID;
@@ -164,29 +164,29 @@ export function buildTaskElements(projectUUID, todoh) {
       toggleCompleted(e,todoh);
     })
 
-    let title = document.createElement("p");
+    const title = document.createElement("p");
     title.className = "task-title";
     title.id = `task-title-${taskUUID.slice(24)}`;
     title.innerHTML = task.taskTitle;
 
-    let dueDate = document.createElement("p");
+    const dueDate = document.createElement("p");
     dueDate.className = "task-due";
     dueDate.id = `task-due-${taskUUID.slice(24)}`;
     dueDate.innerHTML = task.taskDueDate;
 
-    let priority = document.createElement("p");
+    const priority = document.createElement("p");
     priority.className = "task-priority";
     priority.id = `task-priority-${taskUUID.slice(24)}`;
     priority.innerHTML = task.taskPriority;
 
     /**mid cells field */
-    let description = document.createElement("p");
+    const description = document.createElement("p");
     description.className = "task-description";
     description.id = `task-description-${taskUUID.slice(24)}`;
     description.innerHTML = task.taskDescription;
 
     /*low cell fields*/
-    let taskEditButton = document.createElement("button");
+    const taskEditButton = document.createElement("button");
     taskEditButton.type = "button";
     taskEditButton.className = "task-edit-button";
     taskEditButton.id = `task-edit-button-${taskUUID.slice(24)}`;
@@ -203,7 +203,7 @@ export function buildTaskElements(projectUUID, todoh) {
       taskEditButtonListener(e, todoh)
     );
 
-    let taskDeleteButton = document.createElement("button");
+    const taskDeleteButton = document.createElement("button");
     taskDeleteButton.type = "button";
     taskDeleteButton.className = "task-delete-button";
     taskDeleteButton.id = `task-delete-button-${index}`;
@@ -221,7 +221,7 @@ export function buildTaskElements(projectUUID, todoh) {
     );
 
     /**high cells */
-    let taskCellDivHigh = document.createElement("div");
+    const taskCellDivHigh = document.createElement("div");
     taskCellDivHigh.className = "task-cell-high";
 
     taskCellDivHigh.appendChild(completed);
@@ -230,17 +230,17 @@ export function buildTaskElements(projectUUID, todoh) {
     taskCellDivHigh.appendChild(dueDate);
 
     /**mid cells */
-    let taskCellDivMid = document.createElement("div");
+    const taskCellDivMid = document.createElement("div");
     taskCellDivMid.className = "task-cell-mid";
     taskCellDivMid.appendChild(description);
     /**low cells */
-    let taskCellDivLow = document.createElement("div");
+    const taskCellDivLow = document.createElement("div");
     taskCellDivLow.className = "task-cell-low";
 
     taskCellDivLow.appendChild(taskEditButton);
     taskCellDivLow.appendChild(taskDeleteButton);
 
-    let taskCellDiv = document.createElement("div");
+    const taskCellDiv = document.createElement("div");
     taskCellDiv.className = "task-cell";
     taskCellDiv.appendChild(taskCellDivHigh);
     taskCellDiv.appendChild(taskCellDivMid);

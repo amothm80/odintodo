@@ -1,6 +1,5 @@
 //generate unique IDs
 import { v4 as uuidv4 } from "uuid";
-
 //to do main functions
 function todoTaskF(
   title,
@@ -18,7 +17,7 @@ function todoTaskF(
   } else {
     taskUUID = UUID;
   }
-  let taskProjectUUID = projectUUID;
+  const taskProjectUUID = projectUUID;
   let taskDescription = description;
   let taskDueDate = dueDate;
   let taskPriority = priority;
@@ -78,17 +77,17 @@ function todoProjectF(title, UUID) {
 
 // export const todoHandler = function (tasks, projects) {
 export const todoHandler = function () {
-  let todoTasks = [];
-  let todoProjects = [];
+  const todoTasks = [];
+  const todoProjects = [];
 
   function saveToLocalStorage() {
-    let todoTasksJSON = [];
-    let todoProjectsJSON = [];
+    const todoTasksJSON = [];
+    const todoProjectsJSON = [];
 
-    for (let task of todoTasks) {
+    for (const task of todoTasks) {
       todoTasksJSON.push(task.getTodoTask());
     }
-    for (let project of todoProjects) {
+    for (const project of todoProjects) {
       todoProjectsJSON.push(project.getTodoProject());
     }
     localStorage.setItem("todoTasks", JSON.stringify(todoTasksJSON));
@@ -192,13 +191,13 @@ export const todoHandler = function () {
   }
 
   function modifyTodoTask(title, description, dueDate, priority, UUID) {
-    let task = readTodoTaskByUUID(UUID);
+    const task = readTodoTaskByUUID(UUID);
     task.modifyTodoTask(title, description, dueDate, priority);
     saveToLocalStorage();
   }
 
   function modifyTodoProject(title, UUID) {
-    let project = readTodoProjectByUUID(UUID);
+    const project = readTodoProjectByUUID(UUID);
     project.modifyTodoProject(title);
     saveToLocalStorage();
   }
@@ -219,9 +218,9 @@ export const todoHandler = function () {
     saveToLocalStorage();
   }
   function deleteTodoProjectByUUID(UUID) {
-    let tasks = readTodoTasksForProject(readTodoProjectByUUID(UUID));
+    const tasks = readTodoTasksForProject(readTodoProjectByUUID(UUID));
 
-    for (let task of tasks) {
+    for (const task of tasks) {
       todoTasks.splice(
         todoTasks.findIndex(
           (t) => t.getTodoTask().taskUUID == task.getTodoTask().taskUUID
@@ -240,12 +239,12 @@ export const todoHandler = function () {
   }
 
   function setTodoTaskCompleted(UUID) {
-    let task = readTodoTaskByUUID(UUID);
+    const task = readTodoTaskByUUID(UUID);
     task.setTaskCompleted();
     saveToLocalStorage();
   }
   function unsetTodoTaskCompleted(UUID) {
-    let task = readTodoTaskByUUID(UUID);
+    const task = readTodoTaskByUUID(UUID);
     task.unsetTaskCompleted();
     saveToLocalStorage();
   }

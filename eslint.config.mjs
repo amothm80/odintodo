@@ -6,4 +6,15 @@ import pluginJs from "@eslint/js";
 export default [
   {languageOptions: { globals: globals.browser }},
   pluginJs.configs.recommended,
+  {
+    rules:{
+      "prefer-const":"error",
+      // "no-const-assigned":"error",
+      "no-var":'error',
+      'no-new-object':'error',
+      'object-shorthand':'error',
+      'no-prototype-builtins':'error',
+      'no-array-constructor':'error'
+    }
+  }
 ];
