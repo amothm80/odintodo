@@ -1,4 +1,6 @@
 import { todoHandler } from "./todo";
+import deleteImg from './assets/delete.png'
+import editImg from './assets/edit-text.png'
 
 function editTaskSubmit(e, todoh) {
   e.preventDefault();
@@ -191,7 +193,12 @@ export function buildTaskElements(projectUUID, todoh) {
     taskEditButton.id = `task-edit-button-${taskUUID.slice(24)}`;
     taskEditButton.dataset.projectUUID = projectUUID;
     taskEditButton.dataset.taskUUID = taskUUID;
-    taskEditButton.innerHTML = "Edit Task";
+    // taskEditButton.innerHTML = "Edit Task";
+    const taskEditImage = document.createElement('img');
+    taskEditImage.src = editImg;
+    taskEditImage.className = 'task-cell-button-image';
+    taskEditImage.id = 'task-edit-image';
+    taskEditButton.appendChild(taskEditImage);
 
     taskEditButton.addEventListener("click", (e) =>
       taskEditButtonListener(e, todoh)
@@ -203,7 +210,12 @@ export function buildTaskElements(projectUUID, todoh) {
     taskDeleteButton.id = `task-delete-button-${index}`;
     taskDeleteButton.dataset.projectUUID = projectUUID;
     taskDeleteButton.dataset.taskUUID = element.getTodoTask().taskUUID;
-    taskDeleteButton.innerHTML = "Delete Task";
+    // taskDeleteButton.innerHTML = "Delete Task";
+    const taskdeleteImage = document.createElement('img');
+    taskdeleteImage.src = deleteImg;
+    taskdeleteImage.className = 'task-cell-button-image';
+    taskdeleteImage.id = 'task-delete-image';
+    taskDeleteButton.appendChild(taskdeleteImage);
 
     taskDeleteButton.addEventListener("click", (e) =>
       taskDeleteButtonListener(e, todoh)

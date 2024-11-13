@@ -9,6 +9,8 @@
   --blue-200: #bfdbfe;
   --slate-200: #e2e8f0;
   --slate-400: #94a3b8;
+  --blue-400: #60a5fa;
+  --red-400: #f87171;
   --neutral-50: #fafafa;
   font-family: ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
     'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
@@ -78,7 +80,9 @@ body {
 
 #projects {
   /* grid-row: 4; */
+
   flex-grow: 1;
+
   padding: 0 10px 0 10px;
 }
 
@@ -94,28 +98,20 @@ body {
   align-items: center;
 }
 
-/* #add-proj-but{
-} */
-
-#add-proj-but:hover {
-  opacity: 0.5;
-}
-
-#add-proj-but:active {
-  opacity: 1;
-}
-
-.footer-button{
-  width: 150px;
-  height: 30px;
+#project-list{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 10px;
 }
 
 .project-cell {
   width: 100%;
-  height: 100%;
+  /* height: 100%; */
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+
 }
 
 .project-button {
@@ -129,6 +125,7 @@ body {
   border-radius: 10px;
   font-weight: 500;
   padding: 0 10px 0 10px;
+  box-shadow: 0px 0px 2px 1px grey;
 }
 
 .project-button:hover {
@@ -158,11 +155,18 @@ body {
   height: 200px;
   padding: 10px;
   align-content: end;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  gap: 20px;
 }
 
 #task-list {
   flex-grow: 1;
-  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 0 10px 0 10px;
 }
 
 #main-content-footer {
@@ -176,34 +180,116 @@ body {
   align-items: center;
 }
 
-.task-cell {
-  /* display: grid;
-  grid-auto-columns: 20px;
-  grid-template-rows: 50px; */
+.edit-project-title{
+  width: 30px;
+  height: 30px;
+  /* background-color: var(--red-400); */
+  background-color: white;
+  border: 0px;
+}
+.project-cell-button-image{
+  width: 29px;
+  height: 29px;
+  background-size: cover; 
+}
 
+.task-cell {
+  padding: 0 10px 0 10px;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-between;
+  gap: 10px;
+  box-shadow: 0px 0px 2px 1px lightgray;
+  border-radius: 10px;
+}
+
+.task-cell-high{
+  display: flex;
+  flex: row;
+  justify-content: flex-start;
+  height: 30px;
+  align-items: center;
   gap: 10px;
 }
 
-.task-checkbox {
-  align-self: center;
-  flex-grow: 0;
+.task-checkbox, .task-due, .task-priority{
+  flex: 0 0 auto;
+}
+
+.task-title{
+  flex: 0 1 100%;
 }
 
 .task-description {
-  /* grid-column: 2/20; */
   align-self: center;
   justify-self: left;
   flex-grow: 1;
 }
 
-.task-due {
-  /* grid-column: 20/22; */
-  align-self: center;
-  justify-self: right;
-  flex-grow: 0;
+.task-cell-mid{
+  height: 60px;
+}
+
+.task-cell-low{
+  height: 40px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  gap: 10px;
+padding-bottom: 10px;
+padding-right: 10px;
+}
+
+.task-edit-button{
+ width: 30px;
+ height: 30px;
+ /* background-color: var(--blue-400); */
+ background-color: white;
+ border: 0px;
+}
+
+.task-delete-button{
+  width: 30px;
+  height: 30px;
+  /* background-color: var(--red-400); */
+  background-color: white;
+  border: 0px;
+}
+
+.task-cell-button-image{
+  width: 29px;
+  height: 29px;
+  background-size: cover;
+}
+
+.footer-button-add{
+  width: 150px;
+  height: 30px;
+  border: 0;
+  background-color: var(--blue-400);
+  border-radius: 10px;
+  box-shadow: 0px 0px 1px 1px gray;
+  color: white;
+  opacity: 0.9;
+}
+
+.footer-button-delete{
+  width: 150px;
+  height: 30px;
+  border: 0;  
+  background-color: var(--red-400);
+  border-radius: 10px;
+  box-shadow: 0px 0px 1px 1px gray;
+  color: white;
+  opacity: 0.9;
+}
+
+.footer-button-add:hover, .footer-button-delete:hover {
+  opacity: 0.5;
+} 
+
+.footer-button-add:active, .footer-button-delete:active {
+  opacity: 1;
 }
 
 /*dialog*/
@@ -222,6 +308,14 @@ dialog {
   padding: 1em;
 }
 
-/* dialog::backdrop {
+dialog::backdrop {
   background-color: rgba(0, 0, 0, 0.5);
-} */
+}
+
+
+form div{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto;
+  gap:10px;
+}

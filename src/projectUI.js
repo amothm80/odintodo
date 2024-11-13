@@ -1,4 +1,6 @@
 import { taskEventListeners, buildTaskElements } from "./taskUI.js";
+import editImg from './assets/edit-text.png'
+
 
 export function newTaskSubmit(e, todoh) {
   e.preventDefault();
@@ -211,9 +213,15 @@ export function buildProjectPage(projectUUID, todoh) {
 
   const projectTitleEditButton = document.createElement("button");
   projectTitleEditButton.dataset.projectUUID = projectUUID;
-  projectTitleEditButton.innerHTML = "Edit";
+  // projectTitleEditButton.innerHTML = "Edit";
   projectTitleEditButton.id = `edit-proj-title-but-${projectUUID.slice(24)}`;
   projectTitleEditButton.className = "edit-project-title";
+
+  const projectEditImage = document.createElement('img');
+  projectEditImage.src = editImg;
+  projectEditImage.className = 'project-cell-button-image';
+  projectEditImage.id = 'project-edit-image';
+  projectTitleEditButton.appendChild(projectEditImage);
 
   projectTitleEditButton.addEventListener("click", (e) => {
     editProjectTitle(todoh, projectUUID);
@@ -227,7 +235,7 @@ export function buildProjectPage(projectUUID, todoh) {
   mainContentFooter.innerHTML = "";
 
   let addTaskButton = document.createElement("button");
-  addTaskButton.className = "footer-button";
+  addTaskButton.className = "footer-button-add";
   addTaskButton.id = `add-task-but-${projectUUID.slice(24)}`;
   addTaskButton.dataset.projectUUID = projectUUID;
   addTaskButton.innerHTML = "Add Task";
@@ -238,7 +246,7 @@ export function buildProjectPage(projectUUID, todoh) {
   });
 
   let deleteProjectButton = document.createElement("button");
-  deleteProjectButton.className = "footer-button";
+  deleteProjectButton.className = "footer-button-delete";
   deleteProjectButton.id = `del-proj-but-${projectUUID.slice(24)}`;
   deleteProjectButton.dataset.projectUUID = projectUUID;
   deleteProjectButton.innerHTML = "Delete Project";
