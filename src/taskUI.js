@@ -1,4 +1,3 @@
-import { todoHandler } from "./todo";
 import deleteImg from './assets/delete.png'
 import editImg from './assets/edit-text.png'
 
