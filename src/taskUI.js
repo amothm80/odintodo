@@ -27,8 +27,8 @@ function editTaskCancel() {
 }
 
 function taskEditButtonListener(e, todoh) {
-  const taskUUID = document.getElementById(e.target.id).dataset.taskUUID;
-  const projectUUID = document.getElementById(e.target.id).dataset.projectUUID;
+  const taskUUID = document.getElementById(e.target.parentElement.id).dataset.taskUUID;
+  const projectUUID = document.getElementById(e.target.parentElement.id).dataset.projectUUID;
   const task = todoh.readTodoTaskByUUID(taskUUID);
 
   const newTaskControl = document.getElementById("new-task-control");
@@ -94,8 +94,8 @@ function taskDeleteButtonListener(e, todoh) {
   // taskDeleteButton.dataset.projectUUID = projectUUID;
   // taskDeleteButton.dataset.taskUUID = element.getTodoTask().taskUUID;
 
-  let projectUUID = document.getElementById(e.target.id).dataset.projectUUID;
-  let taskUUID = document.getElementById(e.target.id).dataset.taskUUID;
+  let projectUUID = document.getElementById(e.target.parentElement.id).dataset.projectUUID;
+  let taskUUID = document.getElementById(e.target.parentElement.id).dataset.taskUUID;
   let taskTitle = todoh.readTodoTaskByUUID(taskUUID).getTodoTask().taskTitle;
 
   let confirmMessage = document.getElementById("confirm-message");
